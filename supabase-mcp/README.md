@@ -216,6 +216,25 @@ Runtime header injection on deployed endpoint:
 - `x-supabase-project-ref`
 - optional `x-mcp-access-level`, `x-mcp-enable-dangerous-tools`, `x-mcp-actor`
 
+## Render Deployment (Web Service)
+
+Use Web Service mode (not Background Worker), with:
+
+- Root Directory: `supabase-mcp`
+- Build Command: `npm install && npm run build`
+- Start Command: `npm run start:web`
+
+Endpoints:
+
+- MCP: `/mcp`
+- Health: `/healthz`
+
+Local HTTP dev:
+
+```bash
+npm run dev:web
+```
+
 ## Tool Examples
 
 `select_rows`:

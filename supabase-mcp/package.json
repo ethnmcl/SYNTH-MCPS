@@ -6,8 +6,10 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "dev:web": "tsx watch src/http/renderServer.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
+    "start:web": "node dist/src/http/renderServer.js",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint . --ext .ts",
     "discover:supabase": "tsx scripts/discover-supabase.ts",
