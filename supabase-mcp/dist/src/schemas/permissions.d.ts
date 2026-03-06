@@ -1,0 +1,10 @@
+import { z } from "zod";
+export declare const AccessLevelSchema: z.ZodEnum<["read_only", "builder", "admin"]>;
+export type AccessLevel = z.infer<typeof AccessLevelSchema>;
+export declare const ToolGroupSchema: z.ZodEnum<["db", "vector", "storage", "admin"]>;
+export type ToolGroup = z.infer<typeof ToolGroupSchema>;
+export declare const ADMIN_ONLY_TOOLS: readonly ["delete_rows", "execute_sql", "list_users", "create_user", "update_user", "delete_user", "delete_file", "delete_embedding", "delete_function", "list_migrations", "apply_migration", "get_api_keys"];
+export declare const TOOL_ACCESS: Record<string, AccessLevel>;
+export declare function canAccess(current: AccessLevel, required: AccessLevel): boolean;
+export declare const DANGEROUS_TOOLS: Set<string>;
+export declare const TOOL_GROUP_MEMBERSHIP: Record<ToolGroup, Set<string>>;
