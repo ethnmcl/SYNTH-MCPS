@@ -18,11 +18,24 @@ export const databaseSchemaTools: Record<string, ToolHandler> = {
   async list_tables(context, input) {
     const schema = String(input.schema ?? "public");
     const rows = await context.managementApi.executeSql(`
-      select table_name as name, table_schema as schema
-      from information_schema.tables
-      where table_schema = '${schema.replace(/'/g, "''")}'
-      and table_type = 'BASE TABLE'
-      order by table_name;
+      with catalog_tables as (
+        select tablename as name, schemaname as schema
+        from pg_catalog.pg_tables
+        where schemaname = '${schema.replace(/'/g, "''")}'
+      ),
+      info_tables as (
+        select table_name as name, table_schema as schema
+        from information_schema.tables
+        where table_schema = '${schema.replace(/'/g, "''")}'
+          and table_type = 'BASE TABLE'
+      )
+      select distinct name, schema
+      from (
+        select * from catalog_tables
+        union all
+        select * from info_tables
+      ) t
+      order by name;
     `);
     return { tables: rows };
   },
