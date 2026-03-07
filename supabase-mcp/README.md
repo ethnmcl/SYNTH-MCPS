@@ -188,6 +188,8 @@ HTTP handlers can inject runtime token/project-ref from headers (validated with 
 
 - `Authorization: Bearer <token>` or `x-supabase-access-token`
 - `x-supabase-project-ref`
+- `x-supabase-service-role-key` (for per-session service-role injection)
+- `x-supabase-anon-key` (optional per-session anon key)
 - optional `x-mcp-access-level`, `x-mcp-enable-dangerous-tools`, `x-mcp-actor`
 
 Use:

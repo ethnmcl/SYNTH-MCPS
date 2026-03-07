@@ -17,6 +17,8 @@ function toEnvOverrides(runtime?: RuntimeConfigOverride): Partial<Record<string,
   return {
     SUPABASE_ACCESS_TOKEN: runtime.supabaseAccessToken,
     SUPABASE_PROJECT_REF: runtime.supabaseProjectRef,
+    SUPABASE_SERVICE_ROLE_KEY: runtime.supabaseServiceRoleKey,
+    SUPABASE_ANON_KEY: runtime.supabaseAnonKey,
     MCP_ACCESS_LEVEL: runtime.mcpAccessLevel,
     MCP_ENABLE_DANGEROUS_TOOLS:
       runtime.mcpEnableDangerousTools === undefined ? undefined : String(runtime.mcpEnableDangerousTools),

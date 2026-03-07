@@ -7,6 +7,8 @@ import { redactKey } from "../utils/redact.js";
 export interface RuntimeConfigOverride {
   supabaseAccessToken?: string;
   supabaseProjectRef?: string;
+  supabaseServiceRoleKey?: string;
+  supabaseAnonKey?: string;
   mcpAccessLevel?: AccessLevel;
   mcpEnableDangerousTools?: boolean;
   actor?: string;
@@ -24,6 +26,8 @@ export interface CreateServerConfig {
 const HeaderConfigSchema = z.object({
   accessToken: z.string().min(1).optional(),
   projectRef: z.string().min(1).optional(),
+  serviceRoleKey: z.string().min(1).optional(),
+  anonKey: z.string().min(1).optional(),
   accessLevel: AccessLevelSchema.optional(),
   dangerous: z.boolean().optional(),
   actor: z.string().min(1).optional(),
@@ -51,6 +55,8 @@ export function runtimeConfigFromHeaders(headers: IncomingHttpHeaders): RuntimeC
   const parsed = HeaderConfigSchema.parse({
     accessToken: readHeader(headers, "x-supabase-access-token") ?? tokenFromBearer,
     projectRef: readHeader(headers, "x-supabase-project-ref"),
+    serviceRoleKey: readHeader(headers, "x-supabase-service-role-key"),
+    anonKey: readHeader(headers, "x-supabase-anon-key"),
     accessLevel: readHeader(headers, "x-mcp-access-level"),
     dangerous: parseBoolean(readHeader(headers, "x-mcp-enable-dangerous-tools")),
     actor: readHeader(headers, "x-mcp-actor"),
@@ -59,6 +65,8 @@ export function runtimeConfigFromHeaders(headers: IncomingHttpHeaders): RuntimeC
   return {
     supabaseAccessToken: parsed.accessToken,
     supabaseProjectRef: parsed.projectRef,
+    supabaseServiceRoleKey: parsed.serviceRoleKey,
+    supabaseAnonKey: parsed.anonKey,
     mcpAccessLevel: parsed.accessLevel,
     mcpEnableDangerousTools: parsed.dangerous,
     actor: parsed.actor,
@@ -70,6 +78,8 @@ export function summarizeRuntimeOverride(override?: RuntimeConfigOverride): Reco
   return {
     override: true,
     access_token: override.supabaseAccessToken ? redactKey(override.supabaseAccessToken) : "[UNSET]",
+    service_role_key: override.supabaseServiceRoleKey ? redactKey(override.supabaseServiceRoleKey) : "[UNSET]",
+    anon_key: override.supabaseAnonKey ? redactKey(override.supabaseAnonKey) : "[UNSET]",
     project_ref: override.supabaseProjectRef ?? "[UNSET]",
     access_level: override.mcpAccessLevel ?? "[UNSET]",
     dangerous_tools: override.mcpEnableDangerousTools ?? "[UNSET]",
