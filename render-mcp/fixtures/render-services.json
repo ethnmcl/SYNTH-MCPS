@@ -1,0 +1,11 @@
+{
+  "services": [
+    {
+      "id": "srv-1",
+      "name": "api-service",
+      "type": "web_service",
+      "environmentName": "production",
+      "status": "live"
+    }
+  ]
+}
