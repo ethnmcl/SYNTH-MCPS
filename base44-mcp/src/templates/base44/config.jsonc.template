@@ -1,0 +1,11 @@
+{
+  // Base44 local project config
+  "workspaceId": "{{workspaceId}}",
+  "projectId": "{{projectId}}",
+  "name": "{{projectName}}",
+  "entitiesDir": "base44/entities",
+  "functionsDir": "base44/functions",
+  "skillsDir": "base44/skills",
+  "connectorsDir": "base44/connectors",
+  "integrationsDir": "base44/integrations"
+}
